@@ -90,6 +90,11 @@ GTNH pone a **2** estos multiplicadores de `config/HungerOverhaul/HungerOverhaul
 
 Esa es la lista que hay que replicar a LV.
 
+**Orden de carga** ✅ (NHCoreMod 2.9.99, CraftTweaker 3.4.8):
+- NHCoreMod añade estas recetas al terminar la carga (`MainRegistry.java` L403–409).
+- Los scripts de CraftTweaker se ejecutan después, en `FMLServerAboutToStartEvent`.
+- Por eso un script `.zs` puede quitar o sustituir las recetas de AE2 🟡 (falta probarlo en el juego).
+
 **Inventario** (conteo automático sobre `ScriptAppliedEnergistics2.java`, rama `master`) ✅:
 
 | Tipo | Cantidad |
@@ -116,7 +121,7 @@ Esa es la lista que hay que replicar a LV.
 
 ## 8. Esperas de máquinas
 
-- GT **no tiene** un multiplicador global de duración en sus configs ✅.
+- GT **no tiene** un multiplicador global de duración ni opciones de overclock en sus configs ✅. La única opción parecida, `durationMultiplier` (`MachineStats.java`), solo afecta al Mass Fabricator.
 - Ya existen dos mods ✅:
   - **EZGT** (MIT): multiplicadores.
   - **Torcherino-GTNH** (GPL-3.0): acelera máquinas GT, incluidos los multibloques.

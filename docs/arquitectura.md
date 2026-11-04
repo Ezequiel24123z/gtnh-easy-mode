@@ -35,7 +35,7 @@ Resultado de analizar el código de GT5U y del addon de CraftTweaker ✅. Nada e
 
 | Cambio | Mecanismo | Detalles |
 |---|---|---|
-| Duración global de las recetas GT (y EU) | Mixin en `OverclockCalculator.calculate()` | - Cubre también las recetas añadidas tarde, por ZenScript y de Assembly Line.<br>- No toca el `mEUt` de las recetas: ninguna baja de tier y NEI sigue coherente.<br>- Las máquinas que no usan este calculador no cambian. |
+| Duración global de las recetas GT (y EU) | Mixin al inicio de `OverclockCalculator.calculate()` que multiplique `durationModifier` por el factor de la config 🟡 | - Cubre también las recetas añadidas tarde, por ZenScript y de Assembly Line.<br>- No toca el `mEUt` de las recetas: ninguna baja de tier, y NEI usa el mismo cálculo.<br>- No afecta a las máquinas que no usan este calculador, como el Bricked Blast Furnace. |
 | Reglas de overclock | El mismo mixin | - Overclock perfecto: `durationDecreasePerOC = eutIncreasePerOC`.<br>- No existe opción en la config.<br>- El overclock por calor ya divide entre 4; falta probar el de láser. |
 | Cantidades de salida | Recorrer todas las recetas al terminar la carga y llamar a `GTMod.proxy.reloadNEICache()` | - Clonar stacks y arrays antes de modificarlos, y limitar el tamaño de los stacks.<br>- Saltar los mapas de reciclaje, replicador, mass fabricator y combustibles, para no crear duplicaciones.<br>- Riesgo: cadenas de subproductos desequilibradas. |
 | Riqueza y tamaño de las vetas | Mixin tardío en `OreMixBuilder` (`density`, `size`, `weight`), el mismo punto que usa EZGT | - Solo en el servidor y solo en chunks nuevos.<br>- Forkear `OreMixes.java` solo para reescribir vetas concretas. |
@@ -48,15 +48,43 @@ Resultado de analizar el código de GT5U y del addon de CraftTweaker ✅. Nada e
 - Las clases por máquina (`mods.gregtech.Assembler`, etc.) aplican los *recipe transformers* de GT; el builder `RA2` se los salta.
 - Los nombres de mapa son los de `RecipeMaps.java` en GT5U, como `gt.recipe.assembler` o `gt.recipe.circuitassembler`. La wiki del addon está desactualizada en parte.
 
-**Proyecto y compilación** ✅ (GTNHGradle):
+**Cómo empezar el mod** ✅:
 
-- `enableModernJavaSyntax` en `gradle.properties` elige el JDK:
-  - `false` → Java 8;
-  - `jabel` (por defecto) → JDK 17 con `--release 8`;
-  - `jvmDowngrader` o `modern` → JDK 25. GT5U usa `jvmDowngrader`.
-- El mod tiene que generar bytecode de Java 8.
-- Comandos: `.\gradlew.bat build`, `runClient` y `runServer` (Java 8), y `runClient25` y `runServer25` (también hay variantes 17 y 21).
-- Declarar `required-after:gregtech` e instalar el mod en **cliente y servidor**.
+1. Plantilla: [ExampleMod1.7.10](https://github.com/GTNewHorizons/ExampleMod1.7.10), con GTNHGradle. Su README recomienda partir de `starter.zip` en vez de clonar.
+2. En `gradle.properties`: `modName`, `modId` y `modGroup`; `usesMixins = true` y `mixinsPackage = mixins`.
+3. En `dependencies.gradle`: `api("com.github.GTNewHorizons:GT5-Unofficial:5.09.54.265:dev")`, la versión de GT de GTNH 2.9.0. Se descarga del nexus de GTNH.
+4. Mixins tardíos (UniMixins y GTNHMixins, que GTNHGradle añade solo):
+   - Una clase con `@LateMixin` que implemente `ILateMixinLoader` (paquete `com.gtnewhorizon.gtnhmixins`). `getMixinConfig()` devuelve `"mixins.<modid>.late.json"` y `getMixins(Set<String> loadedMods)`, la lista de mixins.
+   - El recurso `mixins.<modid>.late.json`, con `compatibilityLevel` `JAVA_8` y `minVersion` `0.8.5-GTNH`.
+   - El mixin: `@Mixin(value = OverclockCalculator.class, remap = false)`.
+   - Ejemplo real: `LateMixinPlugin.java` de [Torcherino-GTNH](https://github.com/czqwq/Torcherino-GTNH).
+   - Con mixins tardíos no hace falta coremod 🟡.
+5. El mod declara `@Mod(dependencies = "required-after:gregtech")` y se instala en **cliente y servidor**.
+6. JDK: lo elige `enableModernJavaSyntax` en `gradle.properties`:
+   - `false` → Java 8;
+   - `jabel` (por defecto) → JDK 17 con `--release 8`;
+   - `jvmDowngrader` o `modern` → JDK 25. GT5U usa `jvmDowngrader`.
+   - En todos los casos, el mod tiene que generar bytecode de Java 8.
+7. Comandos: `.\gradlew.bat build`, `runClient` y `runServer` (Java 8), y `runClient25` y `runServer25` (también hay variantes 17 y 21).
+
+**Referencias en el código** ✅ (GT5U 5.09.54.265 y NHCoreMod 2.9.99, las versiones de GTNH 2.9.0):
+
+| Qué | Dónde |
+|---|---|
+| Duración y EU de cada receta | `GTRecipe.java` L101: `mDuration` y `mEUt`, que no son `final` |
+| Recetas de Assembly Line | Aparte, en `sAssemblylineRecipes` (`GTRecipe.java` L1079–1109) |
+| Lista de todos los mapas | `RecipeMap.ALL_RECIPE_MAPS` (`RecipeMap.java` L48) |
+| Cálculo de overclock | `OverclockCalculator.java`:<br>- `calculate()` L344 y `calculateOverclock()` L385–437.<br>- Campos `durationModifier` L29, `eutIncreasePerOC` L33 y `durationDecreasePerOC` L35.<br>- `durationModifier` no se aplica si la máquina usa sub-ticks (L387–388). |
+| NEI usa el mismo cálculo | `GTNEIDefaultHandler.java` L525–538 |
+| Máquinas que no lo usan | - Bricked Blast Furnace (`MTEBrickedBlastFurnace.java` L482).<br>- Estación de investigación de TecTech.<br>- Generadores 🟡. |
+
+**Cuándo recorrer las recetas** (para el cambio de cantidades):
+
+- GT añade casi todas sus recetas en `postInit` (`GTMod.java` L440–616) ✅.
+- NHCoreMod ejecuta sus scripts, incluido el de AE2, al terminar la carga (`MainRegistry.java` L403–409) ✅.
+- CraftTweaker ejecuta los `.zs` después, en `FMLServerAboutToStartEvent` (`MineTweakerMod.java` L162–178) ✅.
+- Punto seguro: un handler propio de `FMLLoadCompleteEvent` 🟡. Corre en cliente y servidor después de GT y NHCoreMod, pero antes de ZenScript.
+- Para incluir también las recetas de ZenScript: `GregTechAPI.sAfterGTServerstart` 🟡. Solo corre en el servidor y se repite cada vez que se carga un mundo en individual, así que hay que aplicarlo una sola vez.
 
 **Riesgo:** revisar los mixins en cada versión de GT, porque las clases y los métodos pueden cambiar.
 

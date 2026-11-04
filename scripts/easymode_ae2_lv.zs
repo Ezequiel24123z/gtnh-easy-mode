@@ -10,6 +10,10 @@
 //
 // Inventario a replicar: en NewHorizonsCoreMod, src/main/java/com/dreammaster/scripts/
 // ScriptAppliedEnergistics2.java (94 recetas GT por encima de LV) y ScriptAE2FC.java.
+//
+// Orden de carga verificado: NHCoreMod añade las recetas de AE2 al terminar la carga,
+// y CraftTweaker ejecuta este script después (FMLServerAboutToStartEvent).
+// Por eso aquí se pueden quitar o sustituir.
 
 import mods.gregtech.Assembler;
 
