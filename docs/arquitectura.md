@@ -31,14 +31,42 @@ Precedente directo: **Garden of Grind** funciona igual, como documento más un m
 
 ### Capa 4: mod Java propio
 
-- Se basa en la plantilla de GTNH para mods 1.7.10 (GTNHGradle) 🟡.
-- Candidatos:
-  - multiplicador global de duración de las recetas GT;
-  - vuelo opcional para todos;
-  - mutaciones de abejas al 100 %;
-  - crecimiento de CropsNH;
-  - voltajes mínimos.
-- Debe instalarse en **cliente y servidor** para que NEI muestre los valores nuevos 🟡.
+Resultado de analizar el código de GT5U y del addon de CraftTweaker ✅. Nada está probado todavía en el juego.
+
+| Cambio | Mecanismo | Detalles |
+|---|---|---|
+| Duración global de las recetas GT (y EU) | Mixin en `OverclockCalculator.calculate()` | - Cubre también las recetas añadidas tarde, por ZenScript y de Assembly Line.<br>- No toca el `mEUt` de las recetas: ninguna baja de tier y NEI sigue coherente.<br>- Las máquinas que no usan este calculador no cambian. |
+| Reglas de overclock | El mismo mixin | - Overclock perfecto: `durationDecreasePerOC = eutIncreasePerOC`.<br>- No existe opción en la config.<br>- El overclock por calor ya divide entre 4; falta probar el de láser. |
+| Cantidades de salida | Recorrer todas las recetas al terminar la carga y llamar a `GTMod.proxy.reloadNEICache()` | - Clonar stacks y arrays antes de modificarlos, y limitar el tamaño de los stacks.<br>- Saltar los mapas de reciclaje, replicador, mass fabricator y combustibles, para no crear duplicaciones.<br>- Riesgo: cadenas de subproductos desequilibradas. |
+| Riqueza y tamaño de las vetas | Mixin tardío en `OreMixBuilder` (`density`, `size`, `weight`), el mismo punto que usa EZGT | - Solo en el servidor y solo en chunks nuevos.<br>- Forkear `OreMixes.java` solo para reescribir vetas concretas. |
+| Recetas concretas (como AE2 a LV) | ZenScript (capa 3) para listas cortas; Java si se eligen por salida o en masa | El mixin de duración también escala estas recetas. |
+
+**Por qué no basta con ZenScript** ✅ (addon 2.3.4):
+
+- No tiene ninguna API para recorrer recetas, así que "multiplicar todas las duraciones" no se puede escribir en ZenScript.
+- `mods.gregtech.RecipeRemover.remove(mapa, entradas, fluidos)` quita **una** receta buscándola por sus **entradas exactas**. No se puede quitar por salida.
+- Las clases por máquina (`mods.gregtech.Assembler`, etc.) aplican los *recipe transformers* de GT; el builder `RA2` se los salta.
+- Los nombres de mapa son los de `RecipeMaps.java` en GT5U, como `gt.recipe.assembler` o `gt.recipe.circuitassembler`. La wiki del addon está desactualizada en parte.
+
+**Proyecto y compilación** ✅ (GTNHGradle):
+
+- `enableModernJavaSyntax` en `gradle.properties` elige el JDK:
+  - `false` → Java 8;
+  - `jabel` (por defecto) → JDK 17 con `--release 8`;
+  - `jvmDowngrader` o `modern` → JDK 25. GT5U usa `jvmDowngrader`.
+- El mod tiene que generar bytecode de Java 8.
+- Comandos: `.\gradlew.bat build`, `runClient` y `runServer` (Java 8), y `runClient25` y `runServer25` (también hay variantes 17 y 21).
+- Declarar `required-after:gregtech` e instalar el mod en **cliente y servidor**.
+
+**Riesgo:** revisar los mixins en cada versión de GT, porque las clases y los métodos pueden cambiar.
+
+**Sin verificar** ⚠️:
+
+- Si GT sincroniza las recetas del servidor a los clientes.
+- Cómo llegan los scripts ZenScript a los clientes en un servidor dedicado.
+- Si las vetas de BartWorks y de otras dimensiones pasan por `OreMixBuilder`.
+
+**Otros candidatos, sin analizar todavía** 🟡: vuelo opcional para todos, mutaciones de abejas al 100 %, crecimiento de CropsNH y voltajes mínimos de máquinas.
 
 ## Presets
 

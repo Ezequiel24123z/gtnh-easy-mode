@@ -121,12 +121,16 @@ Esa es la lista que hay que replicar a LV.
   - **EZGT** (MIT): multiplicadores.
   - **Torcherino-GTNH** (GPL-3.0): acelera máquinas GT, incluidos los multibloques.
 - Conviene usarlos con valores moderados, porque pueden banalizar el juego.
-- Alternativa propia: al final de la carga, recorrer los `RecipeMap` de GT y escalar la duración 🟡. Ver [arquitectura.md](arquitectura.md#capa-4-mod-java-propio).
+- Alternativa propia: un mixin en `OverclockCalculator.calculate()` de GT5U que escala la duración al procesar.
+  - Cubre también las recetas de scripts y de Assembly Line, y no cambia el tier de ninguna receta ✅ (análisis del código).
+  - Falta probarlo en el juego 🟡. Ver [arquitectura.md](arquitectura.md#capa-4-mod-java-propio).
 
 ## 9. Lo que no se puede cambiar solo con configs ✅
 
 - Tamaño y frecuencia de las vetas (`OreMixes.java`).
 - Multiplicador global de tiempos de receta.
+- Reglas de overclock, como el overclock perfecto.
+- Cambios en masa de recetas: ZenScript no tiene ninguna API para recorrerlas.
 - Voltaje mínimo de una máquina o multibloque.
 
 Todo eso va al mod Java (capa 4).
