@@ -49,11 +49,35 @@ GTNH pone a **2** estos multiplicadores de `config/HungerOverhaul/HungerOverhaul
 1. **EZMiner** (MIT ✅):
    - minado en bloque, con un modo **"GT Vein Ore"** que solo mina las menas de la veta ✅;
    - cosecha en área ✅.
+   - compatible con Visual Prospecting: registra las vetas mientras las minas ✅.
+   - puede subir el radio, el límite de bloques y quitar el coste de hambre.
 2. **Ore Drilling Plant** T1 (MV): mina 96×96 bloques y carga sus propios chunks ✅.
    - Easy: controlador y Drilling Fluid más baratos por script 🟡.
    - Bajarla de verdad a LV depende del voltaje mínimo fijado en el código, así que haría falta el mod Java ⚠️.
 3. **Void Miner** más barato por script 🟡.
-4. Las vetas están fijas en el código de GT (`OreMixes.java`) ✅. Su tamaño o frecuencia solo se cambia con el mod Java.
+4. **EZGT** (MIT ✅):
+   - multiplica `veinRichness` antes de generar el mundo;
+   - valor de partida del preset: `4.0`;
+   - la riqueza solo afecta a mundos nuevos o chunks nuevos;
+   - también mejora casings, circuitos, motores y subproductos.
+5. Las vetas están fijadas en el código de GT (`OreMixes.java`) ✅; EZGT las hace más densas con un mixin en `OreMixBuilder.density`.
+
+**Preset recomendado para minería masiva**
+
+| Clave EZMiner | Base | Easy | Motivo |
+|---|---:|---:|---|
+| `bigRadius` | `8` | `32` | Cadenas mayores sin recorrer todo el servidor |
+| `blockLimit` | `1024` | `16384` | Vetas completas |
+| `breakPerTick` | `16` | `64` | Finalización rápida |
+| `crazyMode` | `false` | `true` | Sin límite por tick; debe medirse el TPS |
+| `cachedBreakPerTick` | `64` | `256` | Cadenas cacheadas rápidas |
+| `enableChainChunkLoading` | `false` | `true` | Cruza chunks |
+| `addExhaustion` | `0.025` | `0.0` | Sin penalización de hambre |
+| `searchWorkerThreads` | `3` | `8` | Búsqueda paralela |
+| `chainCooldownTicks` | `0` | `0` | Sin espera entre vetas |
+| `enableUnlimitedOreFortune` | `false` | `true` | Quita el cap de Fortune III para menas GT/BW |
+
+El archivo del servidor es `EZMiner/EZMiner_Server.cfg`. Los detalles y los riesgos están en [docs/mods.md](mods.md).
 
 ## 5. Vuelo creativo
 
@@ -125,9 +149,12 @@ Esa es la lista que hay que replicar a LV.
 - Ya existen dos mods ✅:
   - **EZGT** (MIT): multiplicadores.
   - **Torcherino-GTNH** (GPL-3.0): acelera máquinas GT, incluidos los multibloques.
-- Conviene usarlos con valores moderados, porque pueden banalizar el juego.
-- Alternativa propia: un mixin en `OverclockCalculator.calculate()` de GT5U que escala la duración al procesar.
+- Para este proyecto, el valor inicial será `0.20×`: 20 % del tiempo original, cinco veces más rápido.
+- Mecanismo propio: un mixin en `OverclockCalculator.calculate()` de GT5U que escala `durationModifier` al procesar.
   - Cubre también las recetas de scripts y de Assembly Line, y no cambia el tier de ninguna receta ✅ (análisis del código).
+  - El tiempo base queda en `duration × 0.20`, y los overclock existentes siguen reduciendo el resultado.
+  - El mínimo sigue siendo 1 tick.
+  - No cambia `mEUt`, así que una máquina no baja ni sube de tier.
   - Falta probarlo en el juego 🟡. Ver [arquitectura.md](arquitectura.md#capa-4-mod-java-propio).
 
 ## 9. Lo que no se puede cambiar solo con configs ✅

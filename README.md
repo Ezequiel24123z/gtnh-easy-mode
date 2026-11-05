@@ -9,6 +9,8 @@
 - no poder volar;
 - la lentitud de los mods de magia;
 - un AE2 que llega demasiado tarde.
+- vetas pequeñas y el tiempo de minarlas;
+- recetas que tardan demasiado para el progreso que ofrecen.
 
 - Versión de referencia: **GTNH 2.9.0** (Minecraft 1.7.10). Análisis del 2026-11-04.
 - Leyenda:
@@ -25,11 +27,11 @@ Todo lo pedido es viable **sin forkear GTNH**. La mayoría se resuelve con **con
 | Abejas sin cría tediosa | Sí | - Forestry `mode=HARD` → `EASY`<br>- Industrial Apiary barato por script<br>- Mutaciones al 100 % con mod Java | Medio | ✅ config · 🟡 resto |
 | Cultivos concretos sin cruces | Sí | - CropsNH ya es determinista: los cruces son recetas en NEI<br>- Semillas y granja industrial más baratas por script | Medio | ✅ / 🟡 |
 | Tiempo de crecimiento | Sí | - HungerOverhaul: multiplicadores `2` → `1`<br>- World Accelerator barato<br>- Mod Java para CropsNH | Bajo | ✅ config |
-| Minería manual | Sí | - EZMiner: minado de vetas GT<br>- Ore Drilling Plant y Void Miner más baratos por script | Bajo | ✅ / 🟡 |
+| Minería manual y vetas grandes | Sí | - EZMiner: "GT Vein Ore" y minado masivo por cadena<br>- EZGT: vetas 4× más densas y mejor recompensa de salida | Bajo-medio | ✅ |
 | Vuelo creativo | Sí | Cualquiera de estas:<br>- ServerUtilities `fly=true` (comando `/fly`)<br>- Angel Ring (hoy IV) bajado a LV<br>- Vuelo para todos en mod propio | Bajo | ✅ / 🟡 |
 | Magia más directa y rápida | En su mayoría | - Thaumcraft `research_difficulty=-1`: investigación con puntos<br>- Thaumcraft `wuss_mode=true`: sin Warp<br>- ModTweaker para abaratar infusiones, altar y runas | Medio-alto | ✅ config · 🟡 ModTweaker |
 | **AE2 entero a LV**, incluida la **Creative Energy Cell** | Sí | - Recetas alternativas a ≤30 EU/t por script: 94 recetas de GT están por encima de LV<br>- `UsageMultiplier` 10 → 1<br>- Canales opcionales | Medio | ✅ inventario · 🟡 recetas |
-| Esperas largas de máquinas | Sí | - EZGT o Torcherino-GTNH, con valores moderados<br>- Multiplicador global de duración en mod propio | Bajo / medio | ✅ / 🟡 |
+| Esperas largas de máquinas | Sí | - Multiplicador global `0.20×` en el mod propio (20 % del tiempo, cinco veces más rápido)<br>- No cambia EU/t ni tiers | Medio | ✅ código · 🟡 juego |
 
 Detalle por área, con archivos y claves exactas: [docs/viabilidad.md](docs/viabilidad.md).
 
@@ -53,7 +55,11 @@ flowchart TB
   - GTNH incluye mods cerrados con permisos concedidos *a GTNH*, que no se transfieren a un derivado. Un overlay no redistribuye esos jars.
   - Es mucho más fácil seguir cada versión nueva de GTNH.
   - Detalles en [docs/arquitectura.md](docs/arquitectura.md) y [docs/legal.md](docs/legal.md).
-- **Presets:** "Sin tedio" (base) y "Turbo" (añade aceleración de máquinas), como los modos de Nomi-CEu y Monifactory ([docs/precedentes.md](docs/precedentes.md)).
+- **Presets:** "Sin tedio" (base) y "Tecnológico rápido" (`0.20×`, vetas EZGT `4×` y minado masivo EZMiner), como los modos de Nomi-CEu y Monifactory ([docs/precedentes.md](docs/precedentes.md)).
+  - El preset inicial usa duración `0.20×` sin cambiar EU/t ni tiers.
+  - EZGT controla vetas, casings, circuitos, motores y subproductos.
+  - EZMiner controla el radio, el límite de bloques, el modo rápido y el coste de hambre.
+  - Los detalles están en [docs/implementacion.md](docs/implementacion.md).
 
 ## Estructura del repo
 
@@ -62,6 +68,8 @@ flowchart TB
 | [`config/`](config/) | Cambios de configuración: archivo, clave, valor de GTNH y valor Easy |
 | [`scripts/`](scripts/) | Scripts ZenScript que se copian a `<instancia>/scripts/`. El primero es AE2 a LV. |
 | [`docs/`](docs/) | Viabilidad, arquitectura, legal, precedentes e [informe previo "GTNH sin grind"](docs/investigacion-gtnh-sin-grind.md) |
+| [`mods.md`](docs/mods.md) | Mods externos, licencias, configuración y compatibilidad |
+| [`implementacion.md`](docs/implementacion.md) | Preset `0.20×`, vetas grandes, minería masiva y hoja de ruta |
 
 Pendiente:
 - `mods.md`: lista de mods externos con enlaces, nunca jars.
@@ -73,7 +81,7 @@ Pendiente:
 | Fase | Entregable | Estado |
 |---|---|---|
 | 0. Fundación | Este repo: visión, viabilidad, arquitectura y legal | Hecho |
-| 1. MVP de configs | Archivos `.cfg` cambiados, EZMiner y script de instalación | Pendiente |
+| 1. MVP de configs | Preset `0.20×`, EZMiner, EZGT y script de instalación | En progreso |
 | 2. Scripts | - AE2 a LV, con Creative Energy Cell<br>- Angel Ring a LV<br>- Apiarios y granja baratos<br>- Magia por ModTweaker | Pendiente |
 | 3. Mod Java | - Multiplicador global de tiempos<br>- Vuelo opcional para todos<br>- Mutaciones al 100 %<br>- Crecimiento de CropsNH | Pendiente |
 | 4. Pulido | - Notas "Easy" en las quests<br>- Traducciones ES/EN<br>- CI que empaqueta el zip en cada tag | Pendiente |

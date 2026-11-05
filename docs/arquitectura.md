@@ -22,6 +22,20 @@ Precedente directo: **Garden of Grind** funciona igual, como documento más un m
 
 - EZMiner (MIT), EZGT (MIT) y Torcherino-GTNH (GPL-3.0) ✅.
 - Se enlazan desde sus releases de GitHub. No se suben jars al repo.
+- **EZGT**, preset inicial:
+  - `veinRichness=4.0`;
+  - `gtCasingAssemblerOutputs=4.0`;
+  - `oreProcessingBonusOutputChances=4.0`;
+  - `easyCircuits=true`;
+  - `easyCoils=true`;
+  - `easyMotors=4.0`.
+- **EZMiner**, preset inicial:
+  - `bigRadius=32`, `blockLimit=16384`, `breakPerTick=64`;
+  - `crazyMode=true`, `cachedBreakPerTick=256`;
+  - `enableChainChunkLoading=true`, `addExhaustion=0`;
+  - `searchWorkerThreads=8`, `chainCooldownTicks=0`;
+  - `enableUnlimitedOreFortune=true`.
+- `crazyMode` y la carga de chunks son los ajustes que más deben perfilarse en un servidor real.
 
 ### Capa 3: scripts ZenScript
 
@@ -35,7 +49,7 @@ Resultado de analizar el código de GT5U y del addon de CraftTweaker ✅. Nada e
 
 | Cambio | Mecanismo | Detalles |
 |---|---|---|
-| Duración global de las recetas GT (y EU) | Mixin al inicio de `OverclockCalculator.calculate()` que multiplique `durationModifier` por el factor de la config 🟡 | - Cubre también las recetas añadidas tarde, por ZenScript y de Assembly Line.<br>- No toca el `mEUt` de las recetas: ninguna baja de tier, y NEI usa el mismo cálculo.<br>- No afecta a las máquinas que no usan este calculador, como el Bricked Blast Furnace. |
+| Duración global de las recetas GT (y EU) | Mixin al inicio de `OverclockCalculator.calculate()` que multiplique `durationModifier` por `0.20` 🟡 | - Cubre también las recetas añadidas tarde, por ZenScript y de Assembly Line.<br>- No toca el `mEUt` de las recetas: ninguna baja de tier, y NEI usa el mismo cálculo.<br>- El mínimo sigue siendo 1 tick.<br>- No afecta a las máquinas que no usan este calculador, como el Bricked Blast Furnace. |
 | Reglas de overclock | El mismo mixin | - Overclock perfecto: `durationDecreasePerOC = eutIncreasePerOC`.<br>- No existe opción en la config.<br>- El overclock por calor ya divide entre 4; falta probar el de láser. |
 | Cantidades de salida | Recorrer todas las recetas al terminar la carga y llamar a `GTMod.proxy.reloadNEICache()` | - Clonar stacks y arrays antes de modificarlos, y limitar el tamaño de los stacks.<br>- Saltar los mapas de reciclaje, replicador, mass fabricator y combustibles, para no crear duplicaciones.<br>- Riesgo: cadenas de subproductos desequilibradas. |
 | Riqueza y tamaño de las vetas | Mixin tardío en `OreMixBuilder` (`density`, `size`, `weight`), el mismo punto que usa EZGT | - Solo en el servidor y solo en chunks nuevos.<br>- Forkear `OreMixes.java` solo para reescribir vetas concretas. |
@@ -102,8 +116,8 @@ Igual que Nomi-CEu y Monifactory ✅, una sola base de código con una carpeta d
 
 ```
 config-overrides/
-  sin-tedio/   # base: todo lo de docs/viabilidad.md
-  turbo/       # base + EZGT/Torcherino con valores moderados
+  sin-tedio/          # configs y scripts sin el escalado global
+  tecnologico-rapido/ # 0.20x, EZGT 4x, EZMiner masivo
 ```
 
 Un script (`install.ps1` / `install.sh`) copia el modo elegido sobre la instancia.
