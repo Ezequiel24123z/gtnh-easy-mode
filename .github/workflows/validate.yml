@@ -49,7 +49,7 @@ jobs:
                 if ($null -eq $pipes) {
                   $pipes = $count
                 } elseif ($count -ne $pipes) {
-                  $bad += "MISMATCH $name: $line"
+                  $bad += ("MISMATCH " + $name + ": " + $line)
                 }
               } else {
                 $pipes = $null
