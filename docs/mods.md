@@ -8,6 +8,14 @@ Este repo no contiene jars ni redistribuye mods cerrados. Se enlazan releases o 
 | [EZGT](https://github.com/KingofKeet/EZGT) | MIT | Vetas 4×, más salida de casings/circuitos/motores y más subproductos | `veinRichness=4.0`, `gtCasingAssemblerOutputs=4.0`, `oreProcessingBonusOutputChances=4.0` | ✅ probado post-2.8.4 · 🟡 adaptar a 2.9.0 |
 | [Torcherino-GTNH](https://github.com/czqwq/Torcherino-GTNH) | GPL-3.0 | Alternativa a tiempos rápidos | No se usa por defecto: el mod propio `0.20×` reemplaza este acercamiento global | ✅ conocida · decidir por compatibilidad |
 | [Visual Prospecting](https://github.com/GTNewHorizons/VisualProspecting) | Revisar licencia | Marcar vetas en el mapa y registrarlas al minarlas | Mantener activa; EZMiner puede alimentar sus datos | ✅ integración reportada |
+| Gendustry | 1.9.13-GTNH en GTNH 2.9.0 | Mutatron, Replicator, Industrial Apiary y bees prístinas | `tuning.cfg` override, sin labware, MJ bajo y no muertes | ✅ config verificada · 🟡 juego |
+| CropsNH | 2.0.140 en GTNH 2.9.0 | Cultivos más rápidos, breeding frecuente y sin malezas | `Growth rate multiplier=2.0`, `Breeding Chance=1` | ✅ config verificada · posible TPS |
+| MagicBees | 2.10.13-GTNH | Hibeescus, Hiveacynth, Beegonia y Drainer | Multiplicadores 0.1 y drainer 20 ticks | ✅ config verificada · 🟡 efecto |
+| Thaumcraft | 4.2.3.5 | Investigación sin Warp y nodos normales | `research_difficulty=-1`, `wuss_mode=true`, `hard_mode_nodes=false` | ✅ config verificada |
+| Thaumic Energistics | 1.7.68-GTNH | Transporte esencia/fluido más directo | Exponente 7 → 6 | ✅ config verificada |
+| Botania | 1.13.42-GTNH | Flores pasivas permanentes y runas más baratas | `passiveDecay.time=-1` + ModTweaker | ✅ config · 🟡 recetas |
+| Blood Magic | 1.9.16 | Más LP y altares/rituales más rápidos | Sacrificio ×5, runas/recetas por script | ✅ config/source · 🟡 balance |
+| Witchery | 0.24.1 | Sueño, coven, vampiros y fume filter menos tediosos | Config y WitcheryExtras/World Accelerator | ✅ config/source · 🟡 recetas |
 
 ## EZGT
 

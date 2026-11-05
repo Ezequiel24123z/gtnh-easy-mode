@@ -1,0 +1,65 @@
+path	key	old	new
+config/forestry/apiculture.cfg	S:mode	HARD	EASY
+config/HungerOverhaul/HungerOverhaul.cfg	I:cropRegrowthMultiplier	2	1
+config/HungerOverhaul/HungerOverhaul.cfg	I:saplingRegrowthMultiplier	2	1
+config/HungerOverhaul/HungerOverhaul.cfg	I:treeCropRegrowthMultiplier	2	1
+config/HungerOverhaul/HungerOverhaul.cfg	I:cactusRegrowthMultiplier	2	1
+config/HungerOverhaul/HungerOverhaul.cfg	I:sugarcaneRegrowthMultiplier	2	1
+config/HungerOverhaul/HungerOverhaul.cfg	I:netherWartRegrowthMultiplier	2	1
+config/HungerOverhaul/HungerOverhaul.cfg	I:cocoaRegrowthMultiplier	2	1
+config/HungerOverhaul/HungerOverhaul.cfg	B:addLowStatEffects	true	false
+config/cropsnh/Configuration.cfg	S:"Growth rate multiplier"	1.0	2.0
+config/cropsnh/Configuration.cfg	I:"Breeding Chance"	3	1
+config/cropsnh/Configuration.cfg	B:"Disable crop sounds"	false	true
+config/cropsnh/Configuration.cfg	B:"Enable weeds"	true	false
+config/cropsnh/Configuration.cfg	B:"Weeds can overtake plants"	true	false
+config/Thaumcraft.cfg	I:research_difficulty	1	-1
+config/Thaumcraft.cfg	B:wuss_mode	false	true
+config/Thaumcraft.cfg	B:hard_mode_nodes	true	false
+config/MagicBees.cfg	D:beegoniaManaMultiplier	1.0	0.1
+config/MagicBees.cfg	D:hibeescusManaCostMultiplier	1.0	0.1
+config/MagicBees.cfg	D:hibeescusTicksMultiplier	1.0	0.1
+config/MagicBees.cfg	D:hiveacynthManaMultiplier	1.0	0.1
+config/MagicBees.cfg	I:drainerTimeBetween	200	20
+config/Botania.cfg	I:passiveDecay.time	72000	-1
+config/Botania.cfg	B:manaSpreaders.silent	false	true
+config/AWWayofTime.cfg	I:"LP per sacrifice"	600	3000
+config/AWWayofTime.cfg	I:"LP per sacrifice with Well of Suffering ritual"	25	125
+config/AWWayofTime.cfg	I:"LP per self-sacrifice"	125	625
+config/AWWayofTime.cfg	I:"LP per self-sacrifice (when Soul Fray potion is active)"	1	5
+config/AWWayofTime.cfg	I:"LP per self-sacrifice with Ritual of Feathered Knife"	125	625
+config/AppliedEnergistics2/AppliedEnergistics2.cfg	D:UsageMultiplier	10.0	1.0
+config/AppliedEnergistics2/AppliedEnergistics2.cfg	B:Channels	true	false
+config/RandomThings.cfg	D:BloodMoonChance	0.01	0
+config/RandomThings.cfg	B:BloodMoonNoSleep	true	false
+serverutilities/serverutilities.cfg	B:fly	false	true
+serverutilities/serverutilities.cfg	B:rtp	false	true
+serverutilities/serverutilities.cfg	B:tpa	false	true
+serverutilities/serverutilities.cfg	B:back	false	true
+serverutilities/serverutilities.cfg	B:chunks	false	true
+serverutilities/serverutilities.cfg	B:home	false	true
+EZMiner/EZMiner_Server.cfg	I:bigRadius	8	32
+EZMiner/EZMiner_Server.cfg	I:serverMaxPreviewBigRadius	8	32
+EZMiner/EZMiner_Server.cfg	I:blockLimit	1024	16384
+EZMiner/EZMiner_Server.cfg	I:serverMaxPreviewBlockLimit	1024	16384
+EZMiner/EZMiner_Server.cfg	I:breakPerTick	16	64
+EZMiner/EZMiner_Server.cfg	I:cachedBreakPerTick	64	256
+EZMiner/EZMiner_Server.cfg	B:crazyMode	false	true
+EZMiner/EZMiner_Server.cfg	B:enableChainChunkLoading	false	true
+EZMiner/EZMiner_Server.cfg	D:addExhaustion	0.025	0.0
+EZMiner/EZMiner_Server.cfg	I:searchWorkerThreads	3	8
+EZMiner/EZMiner_Server.cfg	I:chainCooldownTicks	0	0
+EZMiner/EZMiner_Server.cfg	B:enableUnlimitedOreFortune	false	true
+config/thaumicenergistics.cfg	I:"Essentia Fluid Ratio Exponent"	7	6
+config/witchery.cfg	I:CovenWitchSpawnWeight	2	10
+config/witchery.cfg	I:PercentageOfPlayersSleepingForBuff	25	1
+config/witchery.cfg	I:VampireDeathItemKeepAliveMins	12	1
+config/witchery.cfg	D:VampireHunterSpawnChance	0.01	0.05
+config/witchery.cfg	B:DoubleFumeFilterChance	false	true
+config/ForbiddenMagic.cfg	I:"Wrath Cage Fuel Cost"	5	0
+config/ForbiddenMagic.cfg	I:"Wrath Cage Fuel Efficiency"	4	40
+config/ForbiddenMagic.cfg	D:terrasteelDiscount	1.8	0.8
+config/ForbiddenMagic.cfg	I:bloodCoreCap	100	500
+config/ForbiddenMagic.cfg	I:dreamwoodCoreCap	200	500
+config/ForbiddenMagic.cfg	I:dreamwoodStaffCap	500	1000
+config/ExtraUtilities.cfg	B:EnderLilyEnabled	false	true

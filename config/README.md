@@ -24,6 +24,21 @@
 | `EZMiner/EZMiner_Server.cfg` | `enableChainChunkLoading` | `false` | `true` | Vetas que cruzan chunks | ✅ · probar carga |
 | `EZMiner/EZMiner_Server.cfg` | `addExhaustion`, `chainCooldownTicks` | `0.025`, `0` | `0.0`, `0` | Sin hambre ni espera entre vetas | ✅ |
 | `EZMiner/EZMiner_Server.cfg` | `searchWorkerThreads`, `enableUnlimitedOreFortune` | `3`, `false` | `8`, `true` | Búsqueda paralela y Fortune sin cap GT/BW | ✅ |
+| `config/cropsnh/Configuration.cfg` | `S:"Growth rate multiplier"` | `1.0` | `2.0` | CropsNH progresa dos veces más rápido | ✅ |
+| `config/cropsnh/Configuration.cfg` | `I:"Breeding Chance"` | `3` | `1` | Cada tick intenta cruzar con más frecuencia | ✅ |
+| `config/cropsnh/Configuration.cfg` | `B:"Enable weeds"`, `B:"Weeds can overtake plants"` | `true`, `true` | `false`, `false` | Sin malezas ni plantas destruidas por ellas | ✅ |
+| `config/gendustry/overrides/tuning.cfg` | Mutatron, MutatronAdv, Sampler, Imprinter | Valores GTNH | Sin labware, menos mutágeno/energía, sin muerte/degradación | Prácticamente no consume recursos ni mata abejas | ✅ GTNH 2.9.0 · 🟡 probar |
+| `config/gendustry/overrides/tuning.cfg` | `MakePristineBees`, `IndustrialApiary.BaseMjPerTick` | `False`, `15` | `True`, `5` | Abejas prístinas y apiario barato | ✅ GTNH 2.9.0 · 🟡 probar |
+| `config/MagicBees.cfg` | MagicBees Hibeescus/Hiveacynth/Beegonia | `1.0` | `0.1` | Menos mana y menos tiempo para flores mágicas | ✅ clave · 🟡 efecto |
+| `config/MagicBees.cfg` | `I:drainerTimeBetween` | `200` | `20` | Apimancer Drainer genera esencia diez veces más rápido | ✅ clave · 🟡 efecto |
+| `config/Thaumcraft.cfg` | `I:research_difficulty`, `B:wuss_mode`, `B:hard_mode_nodes` | `1`, `false`, `true` | `-1`, `true`, `false` | Investigación con puntos, sin Warp y nodos normales | ✅ |
+| `config/Botania.cfg` | `I:passiveDecay.time` | `72000` | `-1` | Flores pasivas no desaparecen | ✅ |
+| `config/Botania.cfg` | `B:manaSpreaders.silent` | `false` | `true` | Menos ruido de repetidores | ✅ QoL |
+| `config/AWWayofTime.cfg` | LP por sacrificio propio/normal/ritual | Varias claves | Aumentar recompensas ×5 | Rituals y sacrificios generan más LP | ✅ clave · 🟡 balance |
+| `config/thaumicenergistics.cfg` | `I:"Essentia Fluid Ratio Exponent"` | `7` | `6` | 64 mB por essentia en vez de 128 mB | ✅ clave · 🟡 balance |
+| `config/witchery.cfg` | Sueño, eclipse, coven, vampiros | Valores GTNH | Menos sueño, eclipse 0, coven mayor y muerte vampírica corta | Rituales menos repetitivos | ✅ clave · 🟡 balance |
+| `config/ForbiddenMagic.cfg` | Wrath Cage, Terrasteel, cores | Valores GTNH | Sin coste de essentia; cores más grandes; Terrasteel más barato | Forbidden Magic más accesible | ✅ clave · 🟡 balance |
+| `config/ExtraUtilities.cfg` | `B:EnderLilyEnabled` | `false` | `true` | Habilita el Ender Lily como recurso alternativo | ✅ clave |
 
 Hay más ajustes, como la carga de chunks o los comandos de teletransporte, en el [informe "GTNH sin grind"](../docs/investigacion-gtnh-sin-grind.md).
 

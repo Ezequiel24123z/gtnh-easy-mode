@@ -1,0 +1,77 @@
+name: Validate overlay
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Reject third-party jars
+        shell: bash
+        run: |
+          if find . -type f \( -iname "*.jar" -o -iname "*.zip" -o -iname "*.lzma" \) | grep -q .; then
+            echo "Third-party binaries are not allowed in this repository."
+            find . -type f \( -iname "*.jar" -o -iname "*.zip" -o -iname "*.lzma" \)
+            exit 1
+          fi
+
+      - name: Validate PowerShell
+        shell: pwsh
+        run: |
+          $errors = $null
+          [System.Management.Automation.Language.Parser]::ParseFile(
+            (Resolve-Path "scripts/install.ps1"),
+            [ref]$null,
+            [ref]$errors
+          ) | Out-Null
+          if ($errors) {
+            $errors | ForEach-Object { Write-Error $_.Message }
+            exit 1
+          }
+
+      - name: Validate Markdown tables
+        shell: pwsh
+        run: |
+          $bad = @()
+          Get-ChildItem -Recurse -Filter "*.md" | ForEach-Object {
+            $name = $_.Name
+            $pipes = $null
+            foreach ($line in (Get-Content $_.FullName -Encoding UTF8)) {
+              if ($line -match "^\\|") {
+                $count = ([regex]::Matches(($line -replace "\\\\\\|", ""), "\\|")).Count
+                if ($null -eq $pipes) {
+                  $pipes = $count
+                } elseif ($count -ne $pipes) {
+                  $bad += "MISMATCH $name: $line"
+                }
+              } else {
+                $pipes = $null
+              }
+            }
+          }
+          if ($bad.Count) {
+            $bad | ForEach-Object { Write-Error $_ }
+            exit 1
+          }
+
+      - name: Validate replacement table
+        shell: pwsh
+        run: |
+          $rows = Import-Csv "config/easy-mode.replacements.tsv" -Delimiter "`t"
+          if ($rows.Count -lt 10) {
+            Write-Error "Replacement table is unexpectedly small."
+            exit 1
+          }
+          foreach ($row in $rows) {
+            if (-not $row.path -or -not $row.key -or -not $row.new) {
+              Write-Error "Invalid replacement row: $($row | ConvertTo-Json -Compress)"
+              exit 1
+            }
+          }

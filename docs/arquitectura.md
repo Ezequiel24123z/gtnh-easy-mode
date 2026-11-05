@@ -108,7 +108,7 @@ Resultado de analizar el código de GT5U y del addon de CraftTweaker ✅. Nada e
 - Cómo llegan los scripts ZenScript a los clientes en un servidor dedicado.
 - Si las vetas de BartWorks y de otras dimensiones pasan por `OreMixBuilder`.
 
-**Otros candidatos, sin analizar todavía** 🟡: vuelo opcional para todos, mutaciones de abejas al 100 %, crecimiento de CropsNH y voltajes mínimos de máquinas.
+**Otros candidatos, sin analizar todavía** 🟡: vuelo opcional para todos, semillas CropsNH con estadísticas altas y voltajes mínimos de máquinas.
 
 ## Presets
 

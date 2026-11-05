@@ -19,6 +19,9 @@ Esto quita tiempo de espera y trabajo manual sin convertir el pack en creativo. 
 | Tiempo de máquinas | Mixin en `OverclockCalculator.calculate()` y config `0.20×` | P0 | Alto, necesita test de overclock y sub-tick |
 | Vetas grandes | EZGT `veinRichness=4.0` | P0 | Medio, solo chunks nuevos |
 | Minado masivo | EZMiner con cadenas, `crazyMode`, radio y límite mayores | P0 | Medio-alto, TPS |
+| Abejas sin mutación tediosa | Gendustry sin labware/muerte, mutágeno bajo y mutaciones habilitadas | P0 | Medio |
+| Crops sin malezas ni stat grind | CropsNH growth `2.0`, breeding `1`, variaciones cero | P0 | Medio, puede afectar TPS |
+| Thaumcraft y magia | Config sin Warp/Wuss, Botania, Blood Magic, Witchery | P1 | Medio |
 | ODP/Void Miner | Recetas más baratas y disponibilidad LV/MV temprana | P1 | Medio |
 | AE2 completo | Scripts para 94 recetas por encima de LV y Creative Energy Cell | P1 | Alto, IDs y recetas |
 | Angel Ring | Receta LV alternativa | P1 | Bajo-medio |
@@ -55,6 +58,27 @@ El mod debe ejecutarse en cliente y servidor. No se implementará como Torcherin
 - Juntos cubren ambos lados del problema: más mineral disponible y menos tiempo para extraerlo.
 
 **Nota importante:** EZGT puede combinarse con EZMiner sin edición de código si su jar y su config son compatibles con GTNH 2.9.0.
+
+## Gendustry, CropsNH y magia
+
+- Gendustry:
+  - sin labware ni muertes artificiales;
+  - Mutatron con menos mutágeno y sin degradación;
+  - Replicator con prístinas;
+  - Industrial Apiary con `5 MJ/t`;
+  - sink LV como opción, validando las recetas de los objetos.
+- CropsNH:
+  - growth `2.0`;
+  - breeding `1`;
+  - malezas desactivadas;
+  - estadística y rendering revisados por TPS.
+- MagicBees:
+  - Hibeescus, Hiveacynth y Beegonia con multiplicadores 0.1;
+  - Drainer diez veces más rápido.
+- Thaumcraft, Botania y Blood Magic:
+  - primeras mejoras por config;
+  - runas, altares e infusiones por ModTweaker;
+  - instancias de teletick solo para áreas concretas.
 
 ## Otras mejoras inmediatas
 

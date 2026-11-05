@@ -1,0 +1,33 @@
+name: Bug de preset
+description: Reportar un problema con una config, script o mod externo
+title: "[Bug] "
+labels:
+  - bug
+body:
+  - type: input
+    attributes:
+      label: GTNH
+      placeholder: 2.9.0
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Java
+      placeholder: Java 25
+  - type: textarea
+    attributes:
+      label: Cambio aplicado
+      description: Preset, clave o script exacto.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Resultado esperado
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Resultado obtenido
+      description: Incluye log, captura o salida de NEI si procede.
+    validations:
+      required: true

@@ -1,0 +1,36 @@
+name: Propuesta de balance
+description: Proponer un cambio para reducir tedio sin quitar progresión
+title: "[Balance] "
+labels:
+  - balance
+body:
+  - type: textarea
+    attributes:
+      label: Qué tedio elimina
+      description: Describe el grind molesto y qué parte técnica debe seguir existiendo.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Cambio stock
+      description: Archivo, clave, valor stock y versión de GTNH.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Cambio Easy
+      description: Valor propuesto y por qué.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Riesgos
+      description: TPS, carga de chunks, dupes, bypass de tier o compatibilidad.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Prueba
+      description: Mundo, tier, duración, TPS y resultado esperado.
+    validations:
+      required: true
