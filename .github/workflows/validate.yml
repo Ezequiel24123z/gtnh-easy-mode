@@ -44,8 +44,8 @@ jobs:
             $name = $_.Name
             $pipes = $null
             foreach ($line in (Get-Content $_.FullName -Encoding UTF8)) {
-              if ($line -match "^\\|") {
-                $count = ([regex]::Matches(($line -replace "\\\\\\|", ""), "\\|")).Count
+              if ($line -match '^\|') {
+                $count = (($line.ToCharArray() | Where-Object { $_ -eq '|' } | Measure-Object).Count)
                 if ($null -eq $pipes) {
                   $pipes = $count
                 } elseif ($count -ne $pipes) {
